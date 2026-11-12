@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asset Management Centre EDHTAR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gov-navy: #0f2942;
+  --gov-navy-dark: #091a2c;
+  --gov-navy-light: #1a3a5c;
+  --gov-blue: #1e5a96;
+  --gov-blue-hover: #164a7d;
+  --gov-gold: #c9a227;
+  --gov-gold-light: #e8c547;
+  --gov-red: #b91c1c;
+  --gov-red-light: #dc2626;
+  --gov-green: #15803d;
+  --gov-green-light: #16a34a;
+  --gov-amber: #d97706;
+  --gov-amber-light: #f59e0b;
+  --gov-gray: #64748b;
+  --bg-page: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-subtle: #f8fafc;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.06);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  min-height:100vh;
+  padding:0;
+  font-size:14px;
+  line-height:1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== LOGIN SCREEN ===== */
+.login-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--gov-navy) 0%, var(--gov-navy-dark) 60%, #050d18 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  padding: 20px;
+  overflow: hidden;
+}
+.login-screen::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,162,39,0.12), transparent 65%);
+  pointer-events: none;
+}
+.login-screen::after {
+  content: '';
+  position: absolute;
+  bottom: -30%; left: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(30,90,150,0.18), transparent 65%);
+  pointer-events: none;
+}
+.login-card {
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 36px 32px;
+  box-shadow: 0 25px 60px -12px rgba(0,0,0,0.5);
+  border-top: 4px solid var(--gov-gold);
+  position: relative;
+  z-index: 1;
+  animation: loginFade 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes loginFade {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.login-emblem {
+  width: 68px;
+  height: 68px;
+  background: linear-gradient(135deg, var(--gov-navy), var(--gov-navy-light));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  margin: 0 auto 20px;
+  box-shadow: 0 8px 20px rgba(15,41,66,0.3);
+  border: 2px solid var(--gov-gold);
+}
+.login-card h2 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gov-navy);
+  text-align: center;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
+}
+.login-card .login-sub {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-align: center;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.login-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.login-form-group label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.login-input-wrap {
+  position: relative;
+}
+.login-input-wrap input {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+  transition: all 0.2s;
+}
+.login-input-wrap input::placeholder { color: var(--text-muted); }
+.login-input-wrap input:focus {
+  outline: none;
+  border-color: var(--gov-blue);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(30,90,150,0.12);
+}
+.login-input-wrap .input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.login-btn {
+  width: 100%;
+  padding: 13px 20px;
+  background: linear-gradient(135deg, var(--gov-blue), var(--gov-blue-hover));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.25s;
+  margin-top: 8px;
+  box-shadow: 0 4px 12px rgba(30,90,150,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.login-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(30,90,150,0.4);
+}
+.login-btn:active { transform: translateY(0); }
+.login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+.login-error {
+  background: #fee2e2;
+  color: var(--gov-red);
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  animation: shake 0.4s ease;
+}
+.login-error.show { display: flex; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+.login-footer {
+  text-align: center;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  line-height: 1.7;
+}
+.login-hint {
+  background: #fef3c7;
+  border: 1px dashed #fcd34d;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 11px;
+  color: #92400e;
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 0.3px;
+}
+
+/* ===== APP WRAPPER (hidden until login) ===== */
+#appWrapper {
+  display: none;
+}
+
+.gov-bar {
+  background: var(--gov-navy-dark);
+  color: rgba(255,255,255,0.7);
+  font-size:11px;
+  letter-spacing:0.5px;
+  padding:6px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.gov-bar span { display:flex; align-items:center; gap:6px; }
+
+.header {
+  background: linear-gradient(135deg, var(--gov-navy) 0%, var(--gov-navy-light) 100%);
+  color: white;
+  padding:0;
+  position:relative;
+  overflow:hidden;
+  border-bottom:3px solid var(--gov-gold);
+}
+.header::after {
+  content:'';
+  position:absolute;
+  top:0; right:0;
+  width:400px; height:100%;
+  background: radial-gradient(circle at 70% 50%, rgba(201,162,39,0.08), transparent 60%);
+  pointer-events:none;
+}
+.header-inner {
+  max-width:1400px;
+  margin:0 auto;
+  padding:24px 32px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:20px;
+  position:relative;
+  z-index:1;
+}
+.header-brand { display:flex; align-items:center; gap:16px; }
+.header-emblem {
+  width:52px; height:52px;
+  background: linear-gradient(135deg, var(--gov-gold), var(--gov-gold-light));
+  border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:26px;
+  box-shadow: 0 4px 12px rgba(201,162,39,0.3);
+  flex-shrink:0;
+}
+.header h1 {
+  font-family:'Source Serif 4',Georgia,serif;
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:0.3px;
+  line-height:1.2;
+}
+.header p {
+  font-size:12px;
+  opacity:0.75;
+  margin-top:4px;
+  letter-spacing:0.3px;
+  font-weight:400;
+}
+.header-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.3px;
+}
+.user-badge .avatar {
+  width: 24px; height: 24px;
+  background: linear-gradient(135deg, var(--gov-gold), var(--gov-gold-light));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--gov-navy-dark);
+  font-weight: 800;
+}
+
+.container {
+  max-width:1400px;
+  margin:0 auto;
+  padding:24px 32px 48px;
+}
+
+.btn {
+  padding:10px 18px;
+  border:1px solid transparent;
+  border-radius:6px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  transition: all 0.2s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:'Inter',sans-serif;
+  letter-spacing:0.2px;
+  white-space:nowrap;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+  background: var(--gov-blue);
+  color: white;
+  border-color: var(--gov-blue);
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary:hover {
+  background: var(--gov-blue-hover);
+  border-color: var(--gov-blue-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-gold {
+  background: var(--gov-gold);
+  color: var(--gov-navy-dark);
+  border-color: var(--gov-gold);
+  box-shadow: var(--shadow-sm);
+}
+.btn-gold:hover {
+  background: var(--gov-gold-light);
+  border-color: var(--gov-gold-light);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: rgba(255,255,255,0.3);
+  color: white;
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.btn-ghost {
+  background: var(--bg-card);
+  border-color: var(--border-strong);
+  color: var(--text-secondary);
+}
+.btn-ghost:hover {
+  background: var(--bg-subtle);
+  border-color: var(--gov-gray);
+  color: var(--text-primary);
+}
+
+.btn-danger {
+  background: var(--gov-red);
+  color: white;
+  border-color: var(--gov-red);
+}
+.btn-danger:hover {
+  background: var(--gov-red-light);
+  border-color: var(--gov-red-light);
+}
+
+.btn-logout {
+  background: rgba(185,28,28,0.15);
+  border-color: rgba(185,28,28,0.4);
+  color: #fca5a5;
+}
+.btn-logout:hover {
+  background: var(--gov-red);
+  border-color: var(--gov-red);
+  color: white;
+}
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:16px;
+  margin-bottom:24px;
+}
+.stat-card {
+  background: var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:20px 22px;
+  position:relative;
+  overflow:hidden;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm);
+}
+.stat-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0;
+  width:4px; height:100%;
+  background: var(--gov-blue);
+}
+.stat-card.gold::before { background: var(--gov-gold); }
+.stat-card.green::before { background: var(--gov-green); }
+.stat-card.red::before { background: var(--gov-red); }
+.stat-card.amber::before { background: var(--gov-amber); }
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-strong);
+}
+.stat-icon {
+  font-size:20px;
+  margin-bottom:10px;
+  opacity:0.9;
+}
+.stat-card .label {
+  font-size:11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing:0.8px;
+  font-weight:600;
+}
+.stat-card .value {
+  font-size:26px;
+  font-weight:700;
+  margin-top:6px;
+  letter-spacing:-0.5px;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.tabs {
+  display:flex;
+  gap:4px;
+  margin-bottom:20px;
+  border-bottom:2px solid var(--border);
+  flex-wrap:wrap;
+}
+.tab {
+  padding:12px 24px;
+  background: transparent;
+  border:none;
+  border-bottom:3px solid transparent;
+  margin-bottom:-2px;
+  cursor:pointer;
+  font-weight:600;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  font-family:'Inter',sans-serif;
+  font-size:13px;
+  letter-spacing:0.3px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.tab:hover {
+  color: var(--gov-blue);
+  background: rgba(30,90,150,0.04);
+}
+.tab.active {
+  color: var(--gov-navy);
+  border-bottom-color: var(--gov-gold);
+}
+
+.toolbar {
+  background: var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px 18px;
+  margin-bottom:20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  align-items:center;
+  box-shadow: var(--shadow-sm);
+}
+.search-box {
+  flex:1;
+  min-width:240px;
+  position:relative;
+}
+.search-box input {
+  width:100%;
+  padding:10px 16px 10px 40px;
+  background: var(--bg-subtle);
+  border:1px solid var(--border-strong);
+  border-radius:6px;
+  font-size:13px;
+  color: var(--text-primary);
+  transition: all 0.2s;
+  font-family:'Inter',sans-serif;
+}
+.search-box input::placeholder { color: var(--text-muted); }
+.search-box input:focus {
+  outline:none;
+  border-color: var(--gov-blue);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(30,90,150,0.1);
+}
+.search-box::before {
+  content:"";
+  position:absolute;
+  left:14px; top:50%;
+  transform: translateY(-50%);
+  width:16px; height:16px;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3ccircle cx='11' cy='11' r='8'%3e%3c/circle%3e%3cpath d='m21 21-4.35-4.35'%3e%3c/path%3e%3c/svg%3e");
+  background-size:contain;
+  background-repeat:no-repeat;
+  pointer-events:none;
+}
+select {
+  padding:10px 36px 10px 14px;
+  background: var(--bg-subtle);
+  border:1px solid var(--border-strong);
+  border-radius:6px;
+  font-size:13px;
+  color: var(--text-primary);
+  cursor:pointer;
+  transition: all 0.2s;
+  font-family:'Inter',sans-serif;
+  appearance:none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size:14px;
+  min-width:150px;
+}
+select:hover { border-color: var(--gov-gray); }
+select:focus {
+  outline:none;
+  border-color: var(--gov-blue);
+  box-shadow: 0 0 0 3px rgba(30,90,150,0.1);
+}
+select option { background: white; color: var(--text-primary); }
+
+.table-wrap {
+  background: var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow: var(--shadow-md);
+}
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead {
+  background: var(--gov-navy);
+  border-bottom:2px solid var(--gov-gold);
+}
+th {
+  padding:14px 16px;
+  text-align:left;
+  font-weight:600;
+  font-size:11px;
+  text-transform: uppercase;
+  letter-spacing:0.8px;
+  color: rgba(255,255,255,0.95);
+  white-space:nowrap;
+}
+td {
+  padding:12px 16px;
+  border-bottom:1px solid var(--border);
+  vertical-align:top;
+  color: var(--text-primary);
+}
+tbody tr { transition: background 0.15s; }
+tbody tr:nth-child(even) { background: var(--bg-subtle); }
+tbody tr:hover { background: rgba(30,90,150,0.04); }
+tbody tr:last-child td { border-bottom:none; }
+
+.badge {
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:4px;
+  font-size:11px;
+  font-weight:600;
+  white-space:nowrap;
+  letter-spacing:0.3px;
+  border:1px solid;
+}
+.badge-green {
+  background: #dcfce7;
+  color: var(--gov-green);
+  border-color: #86efac;
+}
+.badge-orange {
+  background: #fef3c7;
+  color: var(--gov-amber);
+  border-color: #fcd34d;
+}
+.badge-red {
+  background: #fee2e2;
+  color: var(--gov-red);
+  border-color: #fca5a5;
+}
+.badge-gray {
+  background: #f1f5f9;
+  color: var(--gov-gray);
+  border-color: #cbd5e1;
+}
+
+.row-actions { display:flex; gap:6px; justify-content:center; }
+.icon-btn {
+  padding:7px 10px;
+  border-radius:5px;
+  border:1px solid;
+  cursor:pointer;
+  font-size:13px;
+  transition: all 0.2s;
+  background: white;
+  line-height:1;
+}
+.icon-btn.edit {
+  color: var(--gov-blue);
+  border-color: var(--border-strong);
+}
+.icon-btn.edit:hover {
+  background: var(--gov-blue);
+  color: white;
+  border-color: var(--gov-blue);
+}
+.icon-btn.delete {
+  color: var(--gov-red);
+  border-color: var(--border-strong);
+}
+.icon-btn.delete:hover {
+  background: var(--gov-red);
+  color: white;
+  border-color: var(--gov-red);
+}
+
+.pagination {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 20px;
+  background: var(--bg-subtle);
+  border-top:1px solid var(--border);
+  font-size:12px;
+  color: var(--text-secondary);
+  flex-wrap:wrap;
+  gap:12px;
+}
+.page-btns { display:flex; gap:4px; flex-wrap:wrap; }
+.page-btns button {
+  padding:7px 12px;
+  border:1px solid var(--border-strong);
+  background: white;
+  color: var(--text-primary);
+  border-radius:5px;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:500;
+  transition: all 0.15s;
+  font-family:'Inter',sans-serif;
+}
+.page-btns button:hover:not(:disabled) {
+  background: var(--gov-blue);
+  color: white;
+  border-color: var(--gov-blue);
+}
+.page-btns button.active {
+  background: var(--gov-navy);
+  color: white;
+  border-color: var(--gov-navy);
+  font-weight:600;
+}
+.page-btns button:disabled { opacity:0.4; cursor:not-allowed; }
+
+.loading { text-align:center; padding:80px 20px; color: var(--text-secondary); }
+.spinner {
+  width:40px; height:40px;
+  border:3px solid var(--border);
+  border-top-color: var(--gov-blue);
+  border-radius:50%;
+  margin: 0 auto 20px;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty { text-align:center; padding:60px 20px; color: var(--text-secondary); }
+.empty-icon { font-size:48px; margin-bottom:16px; opacity:0.5; }
+
+.zone-dashboard { animation: fadeIn 0.4s ease; }
+@keyframes fadeIn {
+  from { opacity:0; transform: translateY(6px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+.zone-summary {
+  background: var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:20px 24px;
+  margin-bottom:20px;
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap:16px;
+  box-shadow: var(--shadow-sm);
+}
+.zone-summary-item {
+  text-align:center;
+  padding:8px;
+  border-right:1px solid var(--border);
+}
+.zone-summary-item:last-child { border-right:none; }
+.zone-summary-item .label {
+  font-size:10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing:0.8px;
+  font-weight:600;
+}
+.zone-summary-item .value {
+  font-size:22px;
+  font-weight:700;
+  margin-top:6px;
+  color: var(--gov-navy);
+  font-variant-numeric: tabular-nums;
+}
+.zone-summary-item.gold .value { color: var(--gov-gold); }
+.zone-summary-item.green .value { color: var(--gov-green); }
+.zone-summary-item.red .value { color: var(--gov-red); }
+.zone-summary-item.blue .value { color: var(--gov-blue); }
+
+.zones-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  gap:16px;
+}
+
+.zone-card {
+  background: var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:18px;
+  cursor:pointer;
+  transition: all 0.25s ease;
+  position:relative;
+  overflow:hidden;
+  box-shadow: var(--shadow-sm);
+}
+.zone-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:4px;
+  background: var(--zone-color, var(--gov-blue));
+}
+.zone-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--border-strong);
+}
+
+.zone-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:14px;
+  gap:10px;
+}
+.zone-name {
+  font-size:14px;
+  font-weight:700;
+  letter-spacing:0.3px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  line-height:1.3;
+}
+.zone-code {
+  font-size:10px;
+  color: var(--text-muted);
+  letter-spacing:1px;
+  font-weight:500;
+  text-transform: uppercase;
+  margin-top:3px;
+}
+.zone-total {
+  font-size:30px;
+  font-weight:800;
+  color: var(--zone-color, var(--gov-blue));
+  letter-spacing:-1px;
+  line-height:1;
+  font-variant-numeric: tabular-nums;
+}
+.zone-total-label {
+  font-size:9px;
+  color: var(--text-muted);
+  letter-spacing:0.8px;
+  text-transform: uppercase;
+  text-align:right;
+  margin-top:4px;
+  font-weight:600;
+}
+
+.zone-stats {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:14px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.zone-stat-mini { display:flex; flex-direction:column; gap:3px; }
+.zone-stat-mini .lbl {
+  font-size:9px;
+  color: var(--text-secondary);
+  letter-spacing:0.5px;
+  text-transform: uppercase;
+  font-weight:600;
+}
+.zone-stat-mini .val {
+  font-size:16px;
+  font-weight:700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.zone-kos {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:9px 12px;
+  background: var(--bg-subtle);
+  border-radius:6px;
+  margin-bottom:12px;
+  border:1px solid var(--border);
+}
+.zone-kos .lbl {
+  font-size:10px;
+  color: var(--text-secondary);
+  letter-spacing:0.5px;
+  text-transform: uppercase;
+  font-weight:600;
+}
+.zone-kos .val {
+  font-size:13px;
+  font-weight:700;
+  color: var(--gov-green);
+  font-variant-numeric: tabular-nums;
+}
+
+.zone-status-bar {
+  display:flex;
+  height:6px;
+  border-radius:3px;
+  overflow:hidden;
+  background: var(--border);
+  margin-top:10px;
+}
+.zone-status-segment {
+  height:100%;
+  transition: flex 0.5s ease;
+}
+.zone-status-segment.green { background: var(--gov-green-light); }
+.zone-status-segment.orange { background: var(--gov-amber-light); }
+.zone-status-segment.red { background: var(--gov-red-light); }
+.zone-status-segment.gray { background: var(--gov-gray); }
+
+.zone-status-legend {
+  display:flex;
+  gap:12px;
+  margin-top:8px;
+  font-size:10px;
+  color: var(--text-secondary);
+  flex-wrap:wrap;
+}
+.zone-status-legend span {
+  display:flex;
+  align-items:center;
+  gap:5px;
+  letter-spacing:0.2px;
+}
+.zone-status-legend .dot {
+  width:7px; height:7px;
+  border-radius:50%;
+}
+.zone-status-legend .dot.green { background: var(--gov-green-light); }
+.zone-status-legend .dot.orange { background: var(--gov-amber-light); }
+.zone-status-legend .dot.red { background: var(--gov-red-light); }
+
+.zone-detail-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+  gap:12px;
+  margin-bottom:20px;
+}
+.zone-detail-stat {
+  background: var(--bg-subtle);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:14px;
+  text-align:center;
+}
+.zone-detail-stat .lbl {
+  font-size:10px;
+  color: var(--text-secondary);
+  letter-spacing:0.6px;
+  text-transform: uppercase;
+  font-weight:600;
+}
+.zone-detail-stat .val {
+  font-size:20px;
+  font-weight:700;
+  margin-top:6px;
+  color: var(--gov-navy);
+  font-variant-numeric: tabular-nums;
+}
+.zone-detail-stat.green .val { color: var(--gov-green); }
+.zone-detail-stat.orange .val { color: var(--gov-amber); }
+.zone-detail-stat.red .val { color: var(--gov-red); }
+
+.zone-asset-list {
+  max-height:400px;
+  overflow-y:auto;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background: var(--bg-card);
+}
+.zone-asset-row {
+  display:grid;
+  grid-template-columns: 55px 1fr 110px 100px;
+  gap:10px;
+  padding:12px 14px;
+  border-bottom:1px solid var(--border);
+  font-size:12px;
+  align-items:center;
+  transition: background 0.15s;
+}
+.zone-asset-row:hover { background: var(--bg-subtle); }
+.zone-asset-row:last-child { border-bottom:none; }
+.zone-asset-row .type {
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.5px;
+  padding:3px 6px;
+  border-radius:4px;
+  text-align:center;
+  text-transform: uppercase;
+}
+.zone-asset-row .type.hm {
+  background: #dbeafe;
+  color: var(--gov-blue);
+}
+.zone-asset-row .type.abr {
+  background: #fef3c7;
+  color: var(--gov-amber);
+}
+.zone-asset-row .name {
+  color: var(--text-primary);
+  font-weight:500;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.zone-asset-row .siri {
+  font-size:10px;
+  color: var(--text-muted);
+  font-family:'SF Mono', Monaco, monospace;
+}
+.zone-asset-row .kos {
+  text-align:right;
+  font-size:12px;
+  color: var(--gov-green);
+  font-weight:700;
+  font-variant-numeric: tabular-nums;
+}
+
+.modal-overlay {
+  position:fixed;
+  inset:0;
+  background: rgba(15,23,42,0.6);
+  backdrop-filter: blur(4px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  padding:20px;
+  animation: fadeIn 0.2s ease;
+}
+.modal-overlay.active { display:flex; }
+.modal {
+  background: white;
+  border-radius:12px;
+  max-width:820px;
+  width:100%;
+  max-height:90vh;
+  overflow-y:auto;
+  box-shadow: 0 25px 50px -12px rgba(15,23,42,0.25);
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity:0; }
+  to { transform: translateY(0); opacity:1; }
+}
+.modal-header {
+  padding:20px 26px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  background: white;
+  z-index:1;
+  border-radius:12px 12px 0 0;
+  border-top:3px solid var(--gov-gold);
+}
+.modal-header h3 {
+  font-size:16px;
+  font-weight:700;
+  color: var(--gov-navy);
+  letter-spacing:0.2px;
+  text-transform: uppercase;
+}
+.modal-header .close {
+  background: var(--bg-subtle);
+  border:1px solid var(--border);
+  font-size:16px;
+  cursor:pointer;
+  color: var(--text-secondary);
+  line-height:1;
+  padding:6px 10px;
+  border-radius:6px;
+  transition: all 0.15s;
+  font-family:inherit;
+}
+.modal-header .close:hover {
+  background: var(--gov-red);
+  border-color: var(--gov-red);
+  color: white;
+}
+.modal-body { padding:24px 26px; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.form-group { display:flex; flex-direction:column; gap:6px; }
+.form-group.full { grid-column:1 / -1; }
+.form-group label {
+  font-size:11px;
+  font-weight:600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing:0.6px;
+}
+.form-group input, .form-group textarea {
+  padding:10px 12px;
+  background: var(--bg-subtle);
+  border:1px solid var(--border-strong);
+  border-radius:6px;
+  font-size:13px;
+  font-family:'Inter',sans-serif;
+  color: var(--text-primary);
+  transition: all 0.2s;
+}
+.form-group input::placeholder, .form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+.form-group input:focus, .form-group textarea:focus {
+  outline:none;
+  border-color: var(--gov-blue);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(30,90,150,0.1);
+}
+.form-group textarea { resize:vertical; min-height:70px; font-family:inherit; }
+.modal-footer {
+  padding:16px 26px;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  position:sticky;
+  bottom:0;
+  background: var(--bg-subtle);
+  border-radius:0 0 12px 12px;
+}
+
+.confirm-box {
+  background: white;
+  border-radius:12px;
+  max-width:440px;
+  width:100%;
+  padding:32px 28px;
+  text-align:center;
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 25px 50px -12px rgba(15,23,42,0.3);
+  border-top:3px solid var(--gov-red);
+}
+.confirm-icon {
+  font-size:48px;
+  margin-bottom:16px;
+  color: var(--gov-red);
+}
+.confirm-box h3 {
+  font-size:17px;
+  color: var(--gov-navy);
+  margin-bottom:10px;
+  letter-spacing:0.2px;
+  text-transform: uppercase;
+  font-weight:700;
+}
+.confirm-box p {
+  color: var(--text-secondary);
+  font-size:13px;
+  margin-bottom:24px;
+  line-height:1.6;
+}
+.confirm-box b { color: var(--gov-navy); font-weight:700; }
+.confirm-actions { display:flex; gap:10px; justify-content:center; }
+
+.toast-wrap {
+  position:fixed;
+  top:24px;
+  right:24px;
+  z-index:2000;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.toast {
+  background: white;
+  padding:14px 18px;
+  border-radius:8px;
+  min-width:280px;
+  color: var(--text-primary);
+  font-size:13px;
+  font-weight:500;
+  border:1px solid var(--border);
+  border-left:4px solid var(--gov-blue);
+  box-shadow: var(--shadow-xl);
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.toast.error { border-left-color: var(--gov-red); }
+.toast.success { border-left-color: var(--gov-green); }
+@keyframes slideIn {
+  from { transform: translateX(120%); opacity:0; }
+  to { transform: translateX(0); opacity:1; }
+}
+
+.gov-footer {
+  max-width:1400px;
+  margin:0 auto;
+  padding:24px 32px;
+  text-align:center;
+  font-size:11px;
+  color: var(--text-muted);
+  letter-spacing:0.3px;
+  border-top:1px solid var(--border);
+  margin-top:40px;
+}
+
+::-webkit-scrollbar { width:8px; height:8px; }
+::-webkit-scrollbar-track { background: var(--bg-page); }
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius:4px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--gov-gray); }
+
+@media (max-width:768px) {
+  .gov-bar { padding:6px 16px; font-size:10px; }
+  .gov-bar span:last-child { display:none; }
+  .header-inner { padding:20px 16px; }
+  .header h1 { font-size:17px; }
+  .header p { font-size:11px; }
+  .header-emblem { width:42px; height:42px; font-size:22px; }
+  .container { padding:16px; }
+  .toolbar { flex-direction:column; align-items:stretch; }
+  .search-box, select { width:100%; min-width:auto; }
+  table { font-size:12px; }
+  th,td { padding:10px 10px; }
+  th { font-size:10px; }
+  .form-grid { grid-template-columns:1fr; }
+  .stat-card .value { font-size:22px; }
+  .toast-wrap { left:16px; right:16px; top:16px; }
+  .toast { min-width:auto; }
+  .zones-grid { grid-template-columns:1fr; }
+  .zone-summary { grid-template-columns:repeat(2,1fr); }
+  .zone-summary-item { border-right:none; border-bottom:1px solid var(--border); padding-bottom:12px; }
+  .zone-summary-item:nth-child(odd) { border-right:1px solid var(--border); }
+  .zone-summary-item:last-child { border-bottom:none; }
+  .zone-asset-row { grid-template-columns: 45px 1fr 70px; font-size:11px; }
+  .zone-asset-row .kos { grid-column: 1 / -1; text-align:left; }
+  .header-actions { width:100%; }
+  .header-actions .btn { flex:1; justify-content:center; }
+  .login-card { padding: 32px 24px 24px; }
+  .user-badge { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-emblem">🏥</div>
+    <h2>Sistem Pengurusan Aset EDHTAR</h2>
+    <div class="login-sub">Portal Rasmi JKT HTAR</div>
+
+    <div class="login-hint">
+      🔑 <b>HOSPITAL TENGKU AMPUAN RAHIMAH</b>
+    </div>
+
+    <div class="login-error" id="loginError">
+      <span>⚠️</span>
+      <span id="loginErrorMsg">Username atau password salah!</span>
+    </div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="login-form-group">
+        <label for="loginUsername">Nama Pengguna</label>
+        <div class="login-input-wrap">
+          <span class="input-icon">👤</span>
+          <input type="text" id="loginUsername" placeholder="Masukkan username..." autocomplete="username" required>
+        </div>
+      </div>
+      <div class="login-form-group">
+        <label for="loginPassword">Kata Laluan</label>
+        <div class="login-input-wrap">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="loginPassword" placeholder="Masukkan password..." autocomplete="current-password" required>
+        </div>
+      </div>
+      <button type="submit" class="login-btn" id="loginBtn">
+        <span>🔓</span>
+        <span id="loginBtnText">Log Masuk</span>
+      </button>
+    </form>
+
+    <div class="login-footer">
+      © Kementerian Kesihatan Malaysia<br>
+      Kecemasan & Trauma • Versi 1.0
+    </div>
+  </div>
+</div>
+
+<!-- ===== APP WRAPPER ===== -->
+<div id="appWrapper">
+
+<div class="gov-bar">
+  <span>🏛️ PORTAL RASMI JKT HTAR KEMENTERIAN KESIHATAN MALAYSIA</span>
+  <span>🔒 Sambungan Selamat • Data Terlindung</span>
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-emblem">🏥</div>
+      <div>
+        <h1>Sistem Pengurusan Aset EDHTAR</h1>
+        <p>Asset Management Centre • Jabatan Perubatan Kecemasan & Trauma</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="user-badge">
+        <div class="avatar">A</div>
+        <span id="currentUser">admin</span>
+      </div>
+      <button class="btn btn-outline" onclick="loadData()">🔄 Muat Semula</button>
+      <button class="btn btn-gold" onclick="openAddModal()">➕ Tambah Aset</button>
+      <button class="btn btn-logout" onclick="handleLogout()">🚪 Log Keluar</button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="stats" id="stats"></div>
+
+  <div class="tabs">
+    <button class="tab active" data-sheet="harta_modal"><span>🏢 Harta Modal</span></button>
+    <button class="tab" data-sheet="ABR"><span>📦 ABR</span></button>
+    <button class="tab" data-sheet="ZON"><span>🗺️ Dashboard Zon</span></button>
+  </div>
+
+  <div class="toolbar" id="tableToolbar">
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Cari No. Siri, Jenis, Lokasi, Status...">
+    </div>
+    <select id="filterStatus"><option value="">Semua Status</option></select>
+    <select id="filterJenis"><option value="">Semua Jenis</option></select>
+    <select id="filterLokasi"><option value="">Semua Lokasi</option></select>
+    <button class="btn btn-ghost" onclick="exportCSV()">⬇️ Export CSV</button>
+  </div>
+
+  <div class="toolbar" id="zoneToolbar" style="display:none;">
+    <div class="search-box">
+      <input type="text" id="zoneSearch" placeholder="Cari nama zon...">
+    </div>
+    <button class="btn btn-ghost" onclick="exportZonesCSV()">⬇️ Export Zon CSV</button>
+  </div>
+
+  <div class="table-wrap" id="tableWrap">
+    <div id="tableContent">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p style="letter-spacing:1px;font-size:12px;text-transform:uppercase;color:var(--text-secondary);">Memuatkan Data Sistem...</p>
+      </div>
+    </div>
+    <div class="pagination" id="pagination" style="display:none;">
+      <div id="pageInfo"></div>
+      <div class="page-btns" id="pageBtns"></div>
+    </div>
+  </div>
+
+  <div id="zoneContent" style="display:none;"></div>
+
+</div>
+
+<footer class="gov-footer">
+  © Kementerian Kesihatan Malaysia • Kecemasan & Trauma<br>
+  Sistem Pengurusan Aset EDHTAR • Versi 1.0 • Hak Cipta Terpelihara
+</footer>
+
+</div><!-- /#appWrapper -->
+
+<!-- FORM MODAL -->
+<div class="modal-overlay" id="formModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">Tambah Aset Baharu</h3>
+      <button class="close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="assetForm" onsubmit="submitForm(event)">
+        <input type="hidden" id="formRowIndex">
+        <div class="form-grid" id="formFields"></div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Batal</button>
+      <button class="btn btn-primary" onclick="document.getElementById('assetForm').requestSubmit()">💾 Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="confirm-box">
+    <div class="confirm-icon">⚠️</div>
+    <h3>Pengesahan Pemadaman</h3>
+    <p id="confirmText">Anda pasti mahu padam aset ini?</p>
+    <div class="confirm-actions">
+      <button class="btn btn-ghost" onclick="closeConfirm()">Batal</button>
+      <button class="btn btn-danger" id="confirmBtn">🗑️ Ya, Padam</button>
+    </div>
+  </div>
+</div>
+
+<!-- ZONE DETAIL MODAL -->
+<div class="modal-overlay" id="zoneModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="zoneModalTitle">Butiran Zon</h3>
+      <button class="close" onclick="closeZoneModal()">✕</button>
+    </div>
+    <div class="modal-body" id="zoneModalBody"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ============================================================
+   🔐 LOGIN SYSTEM
+   ============================================================ */
+const VALID_USERNAME = 'admin';
+const VALID_PASSWORD = 'admin123';
+const SESSION_KEY = 'edhtar_auth_session';
+
+function handleLogin(ev) {
+  ev.preventDefault();
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errorEl = document.getElementById('loginError');
+  const errorMsg = document.getElementById('loginErrorMsg');
+  const btn = document.getElementById('loginBtn');
+  const btnText = document.getElementById('loginBtnText');
+
+  // Reset error
+  errorEl.classList.remove('show');
+
+  // Validasi kosong
+  if (!username || !password) {
+    errorMsg.textContent = 'Sila isi username dan password!';
+    errorEl.classList.add('show');
+    return;
+  }
+
+  // Butang loading
+  btn.disabled = true;
+  btnText.textContent = 'Mengesahkan...';
+
+  // Simulasi sambungan selamat (delay)
+  setTimeout(() => {
+    if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+      // Simpan sesi
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+        username: username,
+        loginTime: new Date().toISOString()
+      }));
+      // Sembunyikan login, tunjuk app
+      showApp(username);
+      toast('✅ Selamat datang, ' + username + '!', 'success');
+      // Load data selepas login
+      loadData();
+    } else {
+      errorMsg.textContent = 'Username atau password salah!';
+      errorEl.classList.add('show');
+      // Reset shake animation
+      errorEl.style.animation = 'none';
+      setTimeout(() => { errorEl.style.animation = ''; }, 10);
+      btn.disabled = false;
+      btnText.textContent = 'Log Masuk';
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('loginPassword').focus();
+    }
+  }, 600);
+}
+
+function showApp(username) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appWrapper').style.display = 'block';
+  document.getElementById('currentUser').textContent = username;
+  // Update avatar huruf pertama
+  const avatar = document.querySelector('.user-badge .avatar');
+  if (avatar) avatar.textContent = username.charAt(0).toUpperCase();
+}
+
+function handleLogout() {
+  if (!confirm('Anda pasti mahu log keluar dari sistem?')) return;
+  sessionStorage.removeItem(SESSION_KEY);
+  document.getElementById('appWrapper').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('loginForm').reset();
+  document.getElementById('loginError').classList.remove('show');
+  document.getElementById('loginBtn').disabled = false;
+  document.getElementById('loginBtnText').textContent = 'Log Masuk';
+  // Reset data
+  allData = { harta_modal: [], ABR: [] };
+  headers = { harta_modal: [], ABR: [] };
+  filtered = [];
+  currentPage = 1;
+  currentSheet = 'harta_modal';
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelector('.tab[data-sheet="harta_modal"]').classList.add('active');
+  // Fokus semula ke username
+  setTimeout(() => document.getElementById('loginUsername').focus(), 100);
+}
+
+function checkSession() {
+  const session = sessionStorage.getItem(SESSION_KEY);
+  if (session) {
+    try {
+      const data = JSON.parse(session);
+      showApp(data.username);
+      loadData();
+      return true;
+    } catch (e) {
+      sessionStorage.removeItem(SESSION_KEY);
+    }
+  }
+  // Tunjuk login screen
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('appWrapper').style.display = 'none';
+  setTimeout(() => document.getElementById('loginUsername').focus(), 200);
+  return false;
+}
+
+/* ============================================================
+   ⚙️ URL WEB APP APPS SCRIPT
+   ============================================================ */
+const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbzzQvhg-YyEguUDXVFqYsAgq40m2TSpDu5hd7yO_esJmIF7iAB_vRZ4qASO-F0w-Rbn6Q/exec';
+
+const ROWS_PER_PAGE = 15;
+const HIDDEN_COLS = ['bil', 'Bil', 'No'];
+
+const ZONES = [
+  { name: 'ZON MERAH',          code: 'RED',           color: '#b91c1c', keys: ['RED', 'MERAH'] },
+  { name: 'ZON KUNING MEDICAL', code: 'YELLOW MED',    color: '#d97706', keys: ['YELLOW MED', 'KUNING MED', 'YELLOW MEDICAL'] },
+  { name: 'ZON CCARS',          code: 'CCARS',         color: '#1e5a96', keys: ['CCARS', 'CCAR'] },
+  { name: 'ZON TRIAGE',         code: 'TRIAGE',        color: '#7c3aed', keys: ['TRIAGE'] },
+  { name: 'ZON GREEN',          code: 'GREEN',         color: '#15803d', keys: ['GREEN', 'HIJAU'] },
+  { name: 'ZON BLUE',           code: 'BLUE',          color: '#2563eb', keys: ['BLUE', 'BIRU'] },
+  { name: 'ZON YELLOW TRAUMA',  code: 'YELLOW TRAUMA', color: '#ca8a04', keys: ['YELLOW TRAUMA', 'TRAUMA'] },
+  { name: 'ZON MDSU',           code: 'MDSU',          color: '#be185d', keys: ['MDSU'] },
+  { name: 'ZON PEOBS',          code: 'PEOBS',         color: '#ea580c', keys: ['PEOBS', 'PEOB'] },
+  { name: 'ZON BER',            code: 'BER',           color: '#0e7490', keys: ['BER'] },
+  { name: 'ZON RESPI',          code: 'RESPI',         color: '#4d7c0f', keys: ['RESPI', 'RESPIRATORY'] },
+  { name: 'ZON CARDIO',         code: 'CARDIO',        color: '#b91c1c', keys: ['CARDIO', 'CARDIAC'] },
+  { name: 'ZON PRPA',           code: 'PRPA',          color: '#0f766e', keys: ['PRPA'] },
+  { name: 'ZON PROCEDURE',      code: 'PROCEDURE',     color: '#6d28d9', keys: ['PROCEDURE', 'PROSEDUR'] }
+];
+
+let currentSheet = 'harta_modal';
+let allData = { harta_modal: [], ABR: [] };
+let headers = { harta_modal: [], ABR: [] };
+let filtered = [];
+let currentPage = 1;
+let confirmCallback = null;
+
+/* ===== FETCH ===== */
+async function fetchSheet(sheetName) {
+  const url = `${WEBAPP_URL}?action=list&sheet=${encodeURIComponent(sheetName)}&t=${Date.now()}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const json = await res.json();
+  if (json.error) throw new Error(json.error);
+  return json.data;
+}
+
+async function apiPost(payload) {
+  await fetch(WEBAPP_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  });
+  return { ok: true };
+}
+
+function rowsToObjects(rows) {
+  if (!rows || rows.length === 0) return { headers: [], rows: [] };
+  const hdrs = rows[0].map(h => String(h).trim());
+  const dataRows = rows.slice(1);
+  const objs = dataRows.map((row, idx) => {
+    const obj = { _rowIndex: idx + 2 };
+    hdrs.forEach((h, i) => { obj[h] = row[i] !== undefined ? row[i] : ''; });
+    const siri = (obj['No. Siri Pendaftaran'] || '').trim();
+    const jenis = (obj['Jenis'] || '').trim();
+    if (!siri && !jenis) obj._isSubRow = true;
+    return obj;
+  });
+  return { headers: hdrs, rows: objs };
+}
+
+/* ===== LOAD ===== */
+async function loadData() {
+  document.getElementById('tableContent').innerHTML = `
+    <div class="loading">
+      <div class="spinner"></div>
+      <p style="letter-spacing:1px;font-size:12px;text-transform:uppercase;color:var(--text-secondary);">Memuatkan Data Sistem...</p>
+    </div>`;
+  try {
+    const [rowsHM, rowsABR] = await Promise.all([fetchSheet('harta_modal'), fetchSheet('ABR')]);
+    const hm = rowsToObjects(rowsHM);
+    const abr = rowsToObjects(rowsABR);
+    allData.harta_modal = hm.rows;  headers.harta_modal = hm.headers;
+    allData.ABR = abr.rows;         headers.ABR = abr.headers;
+    populateFilters();
+    render();
+  } catch (err) {
+    document.getElementById('tableContent').innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">⚠️</div>
+        <p style="letter-spacing:1px;text-transform:uppercase;font-size:12px;">Gagal Memuatkan Data</p>
+        <p style="font-size:12px;margin-top:10px;color:var(--text-muted);">${escapeHtml(err.message)}</p>
+      </div>`;
+  }
+}
+
+/* ===== FILTERS ===== */
+function populateFilters() {
+  const sheetKey = (currentSheet === 'ZON') ? 'harta_modal' : currentSheet;
+  const data = allData[sheetKey].filter(r => !r._isSubRow);
+  const uniq = (key) => [...new Set(data.map(r => (r[key] || '').trim()).filter(Boolean))].sort();
+  const setOpts = (id, items, label) => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    sel.innerHTML = `<option value="">${label}</option>` +
+      items.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');
+  };
+  setOpts('filterStatus', uniq('Status'), 'Semua Status');
+  setOpts('filterJenis', uniq('Jenis'), 'Semua Jenis');
+  setOpts('filterLokasi', uniq('Lokasi'), 'Semua Lokasi');
+}
+
+/* ===== RENDER ===== */
+function render() {
+  if (currentSheet === 'ZON') {
+    document.getElementById('tableToolbar').style.display = 'none';
+    document.getElementById('zoneToolbar').style.display = 'flex';
+    document.getElementById('tableWrap').style.display = 'none';
+    document.getElementById('zoneContent').style.display = 'block';
+    renderStats();
+    renderZones();
+    return;
+  }
+  document.getElementById('tableToolbar').style.display = 'flex';
+  document.getElementById('zoneToolbar').style.display = 'none';
+  document.getElementById('tableWrap').style.display = 'block';
+  document.getElementById('zoneContent').style.display = 'none';
+  
+  const data = allData[currentSheet];
+  const search = document.getElementById('search').value.toLowerCase().trim();
+  const fStatus = document.getElementById('filterStatus').value;
+  const fJenis = document.getElementById('filterJenis').value;
+  const fLokasi = document.getElementById('filterLokasi').value;
+  
+  filtered = data.filter(r => {
+    if (r._isSubRow) return false;
+    if (fStatus && (r.Status || '').trim() !== fStatus) return false;
+    if (fJenis && (r.Jenis || '').trim() !== fJenis) return false;
+    if (fLokasi && (r.Lokasi || '').trim() !== fLokasi) return false;
+    if (search) {
+      const hay = Object.values(r).join(' ').toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+  currentPage = 1;
+  renderStats();
+  renderTable();
+}
+
+/* ===== STATS ===== */
+function animateValue(el, end, duration = 1000, prefix = '') {
+  if (!el) return;
+  const startTime = performance.now();
+  const isFloat = !Number.isInteger(end);
+  function update(now) {
+    const p = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    const val = end * eased;
+    el.textContent = prefix + (isFloat
+      ? val.toLocaleString('ms-MY', { minimumFractionDigits:2, maximumFractionDigits:2 })
+      : Math.floor(val).toLocaleString());
+    if (p < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+function renderStats() {
+  if (currentSheet === 'ZON') {
+    const hm = allData.harta_modal.filter(r => !r._isSubRow);
+    const abr = allData.ABR.filter(r => !r._isSubRow);
+    const kosHm = hm.reduce((s,r) => s + (parseFloat(String(r['Kos (RM)']||'0').replace(/[^0-9.]/g,''))||0), 0);
+    const kosAbr = abr.reduce((s,r) => s + (parseFloat(String(r['Kos']||'0').replace(/[^0-9.]/g,''))||0), 0);
+    
+    let zoneWithAssets = 0;
+    ZONES.forEach(z => {
+      const countHm = hm.filter(r => matchZone(r.Lokasi, z)).length;
+      const countAbr = abr.filter(r => matchZone(r.Lokasi, z)).length;
+      if (countHm + countAbr > 0) zoneWithAssets++;
+    });
+    
+    document.getElementById('stats').innerHTML = `
+      <div class="stat-card gold">
+        <div class="stat-icon">🗺️</div>
+        <div class="label">Zon Aktif</div>
+        <div class="value" id="statTotal">0</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon">💰</div>
+        <div class="label">Jumlah Nilai Aset</div>
+        <div class="value" id="statKos">RM 0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🏢</div>
+        <div class="label">Harta Modal</div>
+        <div class="value" id="statGuna">0</div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-icon">📦</div>
+        <div class="label">ABR</div>
+        <div class="value" id="statRosak">0</div>
+      </div>
+    `;
+    animateValue(document.getElementById('statTotal'), zoneWithAssets);
+    animateValue(document.getElementById('statKos'), kosHm + kosAbr, 1200, 'RM ');
+    animateValue(document.getElementById('statGuna'), hm.length);
+    animateValue(document.getElementById('statRosak'), abr.length);
+    return;
+  }
+  
+  const data = allData[currentSheet].filter(r => !r._isSubRow);
+  const total = data.length;
+  const kosKey = currentSheet === 'harta_modal' ? 'Kos (RM)' : 'Kos';
+  const totalKos = data.reduce((s, r) => {
+    const v = parseFloat(String(r[kosKey] || '0').replace(/[^0-9.]/g, '')) || 0;
+    return s + v;
+  }, 0);
+  const statusCount = {};
+  data.forEach(r => {
+    const s = (r.Status || 'Tiada').trim();
+    statusCount[s] = (statusCount[s] || 0) + 1;
+  });
+  const rosak = Object.entries(statusCount).find(([k]) => /rosak|pembaikan/i.test(k));
+  
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-icon">📦</div>
+      <div class="label">Jumlah Aset</div>
+      <div class="value" id="statTotal">0</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-icon">💰</div>
+      <div class="label">Jumlah Nilai</div>
+      <div class="value" id="statKos">RM 0</div>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-icon">✅</div>
+      <div class="label">Sedang Digunakan</div>
+      <div class="value" id="statGuna">0</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-icon">⚠️</div>
+      <div class="label">${rosak ? rosak[0] : 'Perlu Perhatian'}</div>
+      <div class="value" id="statRosak">0</div>
+    </div>
+  `;
+  animateValue(document.getElementById('statTotal'), total);
+  animateValue(document.getElementById('statKos'), totalKos, 1200, 'RM ');
+  animateValue(document.getElementById('statGuna'), statusCount['Sedang Digunakan'] || 0);
+  animateValue(document.getElementById('statRosak'), rosak ? rosak[1] : 0);
+}
+
+/* ============================================
+   ZONE FUNCTIONS
+   ============================================ */
+function matchZone(lokasi, zone) {
+  if (!lokasi) return false;
+  const lok = String(lokasi).toUpperCase();
+  return zone.keys.some(k => lok.includes(k.toUpperCase()));
+}
+
+function getZoneAssets(zone) {
+  const hm = allData.harta_modal.filter(r => !r._isSubRow && matchZone(r.Lokasi, zone));
+  const abr = allData.ABR.filter(r => !r._isSubRow && matchZone(r.Lokasi, zone));
+  return { hm, abr, total: hm.length + abr.length };
+}
+
+function renderZones() {
+  const search = (document.getElementById('zoneSearch')?.value || '').toLowerCase().trim();
+  
+  let grandTotalHm = 0, grandTotalAbr = 0, grandKos = 0;
+  
+  const zonesData = ZONES.map(z => {
+    const { hm, abr, total } = getZoneAssets(z);
+    const kosHm = hm.reduce((s,r) => s + (parseFloat(String(r['Kos (RM)']||'0').replace(/[^0-9.]/g,''))||0), 0);
+    const kosAbr = abr.reduce((s,r) => s + (parseFloat(String(r['Kos']||'0').replace(/[^0-9.]/g,''))||0), 0);
+    
+    const allAssets = [...hm, ...abr];
+    const statusCount = { green:0, orange:0, red:0, gray:0 };
+    allAssets.forEach(r => {
+      const st = (r.Status || '').toLowerCase();
+      if (/rosak|pembaikan/.test(st)) statusCount.red++;
+      else if (/digunakan/.test(st)) statusCount.green++;
+      else if (/simpan|stok/.test(st)) statusCount.gray++;
+      else statusCount.orange++;
+    });
+    
+    grandTotalHm += hm.length;
+    grandTotalAbr += abr.length;
+    grandKos += kosHm + kosAbr;
+    
+    return { zone: z, hm, abr, total, kosHm, kosAbr, kosTotal: kosHm + kosAbr, statusCount };
+  });
+  
+  const filteredZones = search
+    ? zonesData.filter(z => z.zone.name.toLowerCase().includes(search) || z.zone.code.toLowerCase().includes(search))
+    : zonesData;
+  
+  filteredZones.sort((a, b) => {
+    if (a.total !== b.total) return b.total - a.total;
+    return a.zone.name.localeCompare(b.zone.name);
+  });
+  
+  const html = `
+    <div class="zone-dashboard">
+      <div class="zone-summary">
+        <div class="zone-summary-item blue">
+          <div class="label">Jumlah Zon</div>
+          <div class="value">${ZONES.length}</div>
+        </div>
+        <div class="zone-summary-item green">
+          <div class="label">Zon Ada Aset</div>
+          <div class="value">${zonesData.filter(z => z.total > 0).length}</div>
+        </div>
+        <div class="zone-summary-item">
+          <div class="label">Total Harta Modal</div>
+          <div class="value">${grandTotalHm}</div>
+        </div>
+        <div class="zone-summary-item gold">
+          <div class="label">Total ABR</div>
+          <div class="value">${grandTotalAbr}</div>
+        </div>
+        <div class="zone-summary-item green">
+          <div class="label">Jumlah Nilai</div>
+          <div class="value" style="font-size:15px;">RM ${grandKos.toLocaleString('ms-MY',{minimumFractionDigits:2})}</div>
+        </div>
+      </div>
+      
+      <div class="zones-grid">
+        ${filteredZones.map((z, i) => {
+          const sc = z.statusCount;
+          return `
+            <div class="zone-card" 
+                 style="--zone-color:${z.zone.color};animation-delay:${i*0.03}s"
+                 onclick="openZoneModal('${z.zone.code}')">
+              <div class="zone-header">
+                <div>
+                  <div class="zone-name">${escapeHtml(z.zone.name)}</div>
+                  <div class="zone-code">${escapeHtml(z.zone.code)}</div>
+                </div>
+                <div style="text-align:right;">
+                  <div class="zone-total">${z.total}</div>
+                  <div class="zone-total-label">Total Aset</div>
+                </div>
+              </div>
+              
+              <div class="zone-stats">
+                <div class="zone-stat-mini">
+                  <span class="lbl">🏢 Harta Modal</span>
+                  <span class="val">${z.hm.length}</span>
+                </div>
+                <div class="zone-stat-mini">
+                  <span class="lbl">📦 ABR</span>
+                  <span class="val">${z.abr.length}</span>
+                </div>
+              </div>
+              
+              <div class="zone-kos">
+                <span class="lbl">💰 Nilai</span>
+                <span class="val">RM ${z.kosTotal.toLocaleString('ms-MY',{minimumFractionDigits:2})}</span>
+              </div>
+              
+              ${z.total > 0 ? `
+                <div class="zone-status-bar">
+                  ${sc.green ? `<div class="zone-status-segment green" style="flex:${sc.green}"></div>` : ''}
+                  ${sc.orange ? `<div class="zone-status-segment orange" style="flex:${sc.orange}"></div>` : ''}
+                  ${sc.red ? `<div class="zone-status-segment red" style="flex:${sc.red}"></div>` : ''}
+                  ${sc.gray ? `<div class="zone-status-segment gray" style="flex:${sc.gray}"></div>` : ''}
+                </div>
+                <div class="zone-status-legend">
+                  ${sc.green ? `<span><span class="dot green"></span>${sc.green} Digunakan</span>` : ''}
+                  ${sc.red ? `<span><span class="dot red"></span>${sc.red} Rosak</span>` : ''}
+                  ${sc.orange ? `<span><span class="dot orange"></span>${sc.orange} Lain</span>` : ''}
+                </div>
+              ` : `
+                <div style="text-align:center;padding:8px;color:var(--text-muted);font-size:11px;letter-spacing:0.5px;">
+                  TIADA ASET DIREKODKAN
+                </div>
+              `}
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+  document.getElementById('zoneContent').innerHTML = html;
+}
+
+/* ===== ZONE DETAIL MODAL ===== */
+function openZoneModal(zoneCode) {
+  const zone = ZONES.find(z => z.code === zoneCode);
+  if (!zone) return;
+  
+  const { hm, abr } = getZoneAssets(zone);
+  const all = [
+    ...hm.map(r => ({ ...r, _type: 'HM', _kosKey: 'Kos (RM)' })),
+    ...abr.map(r => ({ ...r, _type: 'ABR', _kosKey: 'Kos' }))
+  ];
+  
+  const kosHm = hm.reduce((s,r) => s + (parseFloat(String(r['Kos (RM)']||'0').replace(/[^0-9.]/g,''))||0), 0);
+  const kosAbr = abr.reduce((s,r) => s + (parseFloat(String(r['Kos']||'0').replace(/[^0-9.]/g,''))||0), 0);
+  
+  const statusCount = {};
+  all.forEach(r => {
+    const s = (r.Status || 'Tiada').trim();
+    statusCount[s] = (statusCount[s] || 0) + 1;
+  });
+  
+  document.getElementById('zoneModalTitle').textContent = zone.name;
+  document.getElementById('zoneModalBody').innerHTML = `
+    <div class="zone-detail-grid">
+      <div class="zone-detail-stat">
+        <div class="lbl">Jumlah Aset</div>
+        <div class="val">${all.length}</div>
+      </div>
+      <div class="zone-detail-stat">
+        <div class="lbl">🏢 Harta Modal</div>
+        <div class="val">${hm.length}</div>
+      </div>
+      <div class="zone-detail-stat">
+        <div class="lbl">📦 ABR</div>
+        <div class="val">${abr.length}</div>
+      </div>
+      <div class="zone-detail-stat green">
+        <div class="lbl">💰 Jumlah Nilai</div>
+        <div class="val" style="font-size:15px;">RM ${(kosHm+kosAbr).toLocaleString('ms-MY',{minimumFractionDigits:2})}</div>
+      </div>
+    </div>
+    
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+      ${Object.entries(statusCount).map(([k,v]) => {
+        const cls = /rosak|pembaikan/i.test(k) ? 'badge-red'
+                  : /digunakan/i.test(k) ? 'badge-green'
+                  : /simpan|stok/i.test(k) ? 'badge-gray'
+                  : 'badge-orange';
+        return `<span class="badge ${cls}">${escapeHtml(k)}: ${v}</span>`;
+      }).join('')}
+    </div>
+    
+    ${all.length === 0 ? `
+      <div class="empty">
+        <div class="empty-icon">📭</div>
+        <p style="letter-spacing:1px;text-transform:uppercase;font-size:12px;">Tiada aset direkodkan di zon ini</p>
+      </div>
+    ` : `
+      <div style="font-size:11px;color:var(--text-secondary);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;font-weight:600;">
+        Senarai Aset (${all.length})
+      </div>
+      <div class="zone-asset-list">
+        ${all.map(r => {
+          const jenis = r['Jenis'] || '—';
+          const siri = r['No. Siri Pendaftaran'] || '—';
+          const kos = parseFloat(String(r[r._kosKey]||'0').replace(/[^0-9.]/g,''))||0;
+          return `
+            <div class="zone-asset-row">
+              <span class="type ${r._type === 'HM' ? 'hm' : 'abr'}">${r._type}</span>
+              <div>
+                <div class="name">${escapeHtml(jenis)}</div>
+                <div class="siri">${escapeHtml(siri)}</div>
+              </div>
+              <div style="font-size:11px;color:var(--text-secondary);">${escapeHtml(r.Status || '—')}</div>
+              <div class="kos">RM ${kos.toLocaleString('ms-MY',{minimumFractionDigits:2})}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `}
+  `;
+  document.getElementById('zoneModal').classList.add('active');
+}
+
+function closeZoneModal() {
+  document.getElementById('zoneModal').classList.remove('active');
+}
+
+/* ===== EXPORT ZONES CSV ===== */
+function exportZonesCSV() {
+  const rows = [['Zon', 'Kod', 'Jumlah Aset', 'Harta Modal', 'ABR', 'Kos HM (RM)', 'Kos ABR (RM)', 'Jumlah Kos (RM)']];
+  ZONES.forEach(z => {
+    const { hm, abr, total } = getZoneAssets(z);
+    const kosHm = hm.reduce((s,r) => s + (parseFloat(String(r['Kos (RM)']||'0').replace(/[^0-9.]/g,''))||0), 0);
+    const kosAbr = abr.reduce((s,r) => s + (parseFloat(String(r['Kos']||'0').replace(/[^0-9.]/g,''))||0), 0);
+    rows.push([z.name, z.code, total, hm.length, abr.length, kosHm.toFixed(2), kosAbr.toFixed(2), (kosHm+kosAbr).toFixed(2)]);
+  });
+  const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `zon_aset_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  toast('📥 CSV zon berjaya dieksport', 'success');
+}
+
+/* ===== TABLE ===== */
+function renderTable() {
+  const hdrs = headers[currentSheet] || [];
+  const kosKey = currentSheet === 'harta_modal' ? 'Kos (RM)' : 'Kos';
+  const cols = hdrs.filter(c => c !== 'bil' && c !== 'Bil' && c !== 'No');
+  const total = filtered.length;
+  const start = (currentPage - 1) * ROWS_PER_PAGE;
+  const pageData = filtered.slice(start, start + ROWS_PER_PAGE);
+  
+  if (total === 0) {
+    document.getElementById('tableContent').innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">🔎</div>
+        <p style="letter-spacing:1px;text-transform:uppercase;font-size:12px;">Tiada Aset Dijumpai</p>
+      </div>`;
+    document.getElementById('pagination').style.display = 'none';
+    return;
+  }
+  
+  let html = `<div style="overflow-x:auto;"><table>
+    <thead><tr>
+      <th style="width:50px;">#</th>
+      ${cols.map(c => `<th>${escapeHtml(c)}</th>`).join('')}
+      <th style="text-align:center;width:110px;">Tindakan</th>
+    </tr></thead>
+    <tbody>`;
+  
+  pageData.forEach((r, i) => {
+    const no = start + i + 1;
+    html += `<tr>
+      <td style="color:var(--gov-blue);font-weight:700;font-variant-numeric:tabular-nums;">${String(no).padStart(2,'0')}</td>
+      ${cols.map(c => {
+        let v = r[c] ?? '';
+        if (c === 'Status') {
+          const cls = /rosak|pembaikan/i.test(v) ? 'badge-red'
+                    : /digunakan/i.test(v) ? 'badge-green'
+                    : /simpan|stok/i.test(v) ? 'badge-gray'
+                    : 'badge-orange';
+          return `<td><span class="badge ${cls}">${escapeHtml(v) || '-'}</span></td>`;
+        }
+        if (c === kosKey && v) {
+          const num = parseFloat(String(v).replace(/[^0-9.]/g,''));
+          if (!isNaN(num)) return `<td style="font-weight:700;color:var(--gov-green);font-variant-numeric:tabular-nums;">RM ${num.toLocaleString('ms-MY',{minimumFractionDigits:2})}</td>`;
+        }
+        return `<td>${escapeHtml(v) || '<span style="color:var(--text-muted);">—</span>'}</td>`;
+      }).join('')}
+      <td style="text-align:center;">
+        <div class="row-actions">
+          <button class="icon-btn edit" onclick="openEditModal(${r._rowIndex})" title="Edit">✏️</button>
+          <button class="icon-btn delete" onclick="askDelete(${r._rowIndex})" title="Padam">🗑️</button>
+        </div>
+      </td>
+    </tr>`;
+  });
+  
+  html += `</tbody></table></div>`;
+  document.getElementById('tableContent').innerHTML = html;
+  
+  const totalPages = Math.ceil(total / ROWS_PER_PAGE);
+  document.getElementById('pagination').style.display = 'flex';
+  document.getElementById('pageInfo').innerHTML =
+    `<span style="letter-spacing:0.5px;text-transform:uppercase;font-size:11px;">Paparan ${start + 1}–${Math.min(start + ROWS_PER_PAGE, total)} daripada ${total} aset</span>`;
+  
+  let btns = `<button ${currentPage === 1 ? 'disabled' : ''} onclick="goPage(${currentPage - 1})">‹</button>`;
+  for (let p = 1; p <= totalPages; p++) {
+    if (p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1) {
+      btns += `<button class="${p === currentPage ? 'active' : ''}" onclick="goPage(${p})">${p}</button>`;
+    } else if (p === currentPage - 2 || p === currentPage + 2) {
+      btns += `<button disabled>···</button>`;
+    }
+  }
+  btns += `<button ${currentPage === totalPages ? 'disabled' : ''} onclick="goPage(${currentPage + 1})">›</button>`;
+  document.getElementById('pageBtns').innerHTML = btns;
+}
+
+function goPage(p) {
+  currentPage = p;
+  renderTable();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ===== MODAL ===== */
+function openAddModal() {
+  if (currentSheet === 'ZON') {
+    toast('Sila tukar ke tab Harta Modal atau ABR untuk tambah aset', 'error');
+    return;
+  }
+  const hdrs = headers[currentSheet] || [];
+  if (hdrs.length === 0) return toast('Data belum dimuatkan', 'error');
+  document.getElementById('modalTitle').textContent = `Tambah Aset — ${currentSheet === 'harta_modal' ? 'Harta Modal' : 'ABR'}`;
+  document.getElementById('formRowIndex').value = '';
+  buildFormFields(hdrs, {});
+  document.getElementById('formModal').classList.add('active');
+}
+
+function openEditModal(rowIndex) {
+  const item = allData[currentSheet].find(r => r._rowIndex === rowIndex);
+  if (!item) return toast('Aset tidak dijumpai', 'error');
+  document.getElementById('modalTitle').textContent = `Kemaskini Aset — ${item['No. Siri Pendaftaran'] || 'Baris ' + rowIndex}`;
+  document.getElementById('formRowIndex').value = rowIndex;
+  buildFormFields(headers[currentSheet], item);
+  document.getElementById('formModal').classList.add('active');
+}
+
+function buildFormFields(hdrs, values) {
+  const container = document.getElementById('formFields');
+  container.innerHTML = hdrs.map(h => {
+    const isHidden = HIDDEN_COLS.includes(h);
+    const isLong = /jenis|butiran|jenama|lokasi/i.test(h);
+    return `
+      <div class="form-group ${isLong ? 'full' : ''}" ${isHidden ? 'style="display:none;"' : ''}>
+        <label>${escapeHtml(h)}</label>
+        ${isLong
+          ? `<textarea id="fld_${cssId(h)}" rows="2" placeholder="Masukkan ${escapeHtml(h)}...">${escapeHtml(values[h] ?? '')}</textarea>`
+          : `<input type="text" id="fld_${cssId(h)}" value="${escapeHtml(values[h] ?? '')}" placeholder="Masukkan ${escapeHtml(h)}..." ${h === 'Status' ? 'list="statusList"' : ''}>`}
+      </div>`;
+  }).join('') + `
+    <datalist id="statusList">
+      <option value="Sedang Digunakan">
+      <option value="Perlu Pembaikan">
+      <option value="Rosak">
+      <option value="Dalam Simpanan">
+      <option value="Dilupuskan">
+    </datalist>`;
+}
+
+function cssId(s) { return s.replace(/[^a-zA-Z0-9]/g, '_'); }
+function closeModal() { document.getElementById('formModal').classList.remove('active'); }
+
+async function submitForm(ev) {
+  ev.preventDefault();
+  const hdrs = headers[currentSheet];
+  const rowIndex = document.getElementById('formRowIndex').value;
+  const row = hdrs.map(h => {
+    const el = document.getElementById('fld_' + cssId(h));
+    return el ? el.value : '';
+  });
+  const siriIdx = hdrs.findIndex(h => /No\. Siri Pendaftaran/i.test(h));
+  if (siriIdx >= 0 && !row[siriIdx].trim()) return toast('No. Siri Pendaftaran wajib diisi', 'error');
+  try {
+    const payload = rowIndex
+      ? { action: 'update', sheet: currentSheet, rowIndex: parseInt(rowIndex), row }
+      : { action: 'add', sheet: currentSheet, row };
+    await apiPost(payload);
+    closeModal();
+    toast(rowIndex ? '✅ Aset berjaya dikemaskini' : '✅ Aset berjaya ditambah', 'success');
+    setTimeout(loadData, 900);
+  } catch (err) {
+    toast('Ralat: ' + err.message, 'error');
+  }
+}
+
+function askDelete(rowIndex) {
+  const item = allData[currentSheet].find(r => r._rowIndex === rowIndex);
+  if (!item) return;
+  document.getElementById('confirmText').innerHTML =
+    `Anda pasti mahu padam aset<br><b>${escapeHtml(item['No. Siri Pendaftaran'] || 'ini')}</b>?<br><span style="font-size:12px;color:var(--text-muted);">Tindakan ini tidak boleh diundur.</span>`;
+  confirmCallback = async () => {
+    try {
+      await apiPost({ action: 'delete', sheet: currentSheet, rowIndex });
+      toast('🗑️ Aset berjaya dipadam', 'success');
+      setTimeout(loadData, 900);
+    } catch (err) {
+      toast('Ralat: ' + err.message, 'error');
+    }
+  };
+  document.getElementById('confirmModal').classList.add('active');
+}
+
+function closeConfirm() {
+  document.getElementById('confirmModal').classList.remove('active');
+  confirmCallback = null;
+}
+
+document.getElementById('confirmBtn').addEventListener('click', () => {
+  if (confirmCallback) confirmCallback();
+  closeConfirm();
+});
+
+function toast(msg, type = 'info') {
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(() => {
+    el.style.transition = 'all 0.3s ease';
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(120%)';
+    setTimeout(() => el.remove(), 300);
+  }, 3200);
+}
+
+function exportCSV() {
+  if (filtered.length === 0) return toast('Tiada data untuk dieksport', 'error');
+  const cols = headers[currentSheet].filter(c => !HIDDEN_COLS.includes(c));
+  const rows = [cols.join(',')];
+  filtered.forEach(r => {
+    rows.push(cols.map(c => `"${String(r[c] ?? '').replace(/"/g,'""')}"`).join(','));
+  });
+  const blob = new Blob(['\ufeff' + rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `aset_${currentSheet}_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  toast('📥 CSV berjaya dieksport', 'success');
+}
+
+function escapeHtml(s) {
+  return String(s ?? '').replace(/[&<>"']/g, m =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function debounce(fn, ms) {
+  let t;
+  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+}
+
+/* ===== EVENTS ===== */
+document.getElementById('search').addEventListener('input', debounce(render, 250));
+document.getElementById('filterStatus').addEventListener('change', render);
+document.getElementById('filterJenis').addEventListener('change', render);
+document.getElementById('filterLokasi').addEventListener('change', render);
+document.getElementById('zoneSearch').addEventListener('input', debounce(renderZones, 250));
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentSheet = tab.dataset.sheet;
+    if (currentSheet !== 'ZON') {
+      document.getElementById('search').value = '';
+      populateFilters();
+    }
+    render();
+  });
+});
+
+document.getElementById('formModal').addEventListener('click', (e) => {
+  if (e.target.id === 'formModal') closeModal();
+});
+document.getElementById('confirmModal').addEventListener('click', (e) => {
+  if (e.target.id === 'confirmModal') closeConfirm();
+});
+document.getElementById('zoneModal').addEventListener('click', (e) => {
+  if (e.target.id === 'zoneModal') closeZoneModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { closeModal(); closeConfirm(); closeZoneModal(); }
+});
+
+/* ===== INIT ===== */
+// Semak sesi login dahulu, jika ada terus load data
+checkSession();
+
+// Enter key pada login form
+document.getElementById('loginPassword').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    document.getElementById('loginForm').requestSubmit();
+  }
+});
+</script>
+</body>
+</html>
